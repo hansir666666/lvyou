@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <title>旅游法规·实名自测 | 手机微信专版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f0f4fa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; padding: 16px 12px 48px; color: #0a2b3e; line-height: 1.4; }
+        .exam-container { max-width: 650px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 1.7rem; font-weight: 800; background: linear-gradient(145deg, #1a4d6f, #236e96); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .badge-info { background: #e7edf8; display: inline-block; padding: 6px 14px; border-radius: 40px; font-size: 0.75rem; margin-top: 8px; color: #1f5a7a; font-weight: 500; }
+        .name-card { background: white; border-radius: 28px; padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .name-card label { font-weight: 600; color: #1a4d6f; font-size: 0.95rem; }
+        .name-card input { flex: 1; padding: 10px 16px; border: 1px solid #cbdde9; border-radius: 60px; font-size: 0.95rem; background: #fefefe; outline: none; font-family: inherit; }
+        .name-card input:focus { border-color: #236e96; box-shadow: 0 0 0 2px rgba(35,110,150,0.2); }
+        .card { background: white; border-radius: 28px; padding: 18px 16px; margin-bottom: 20px; box-shadow: 0 6px 14px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.03); }
+        .question-item { margin-bottom: 28px; border-bottom: 1px solid #e2eaf1; padding-bottom: 20px; }
+        .question-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .q-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .q-type { font-size: 0.65rem; background: #eef2fa; padding: 3px 10px; border-radius: 30px; color: #2c6280; }
+        .q-points { font-size: 0.65rem; background: #e3f0eb; padding: 3px 10px; border-radius: 30px; color: #1a6b49; }
+        .question-text { font-size: 1rem; font-weight: 600; line-height: 1.4; color: #0b3f5c; flex: 1; }
+        .options { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+        .option { display: flex; align-items: center; gap: 10px; background: #fafdff; padding: 8px 14px; border-radius: 60px; border: 1px solid #dee8f0; cursor: pointer; transition: 0.1s; }
+        .option:active { background: #eef4fc; transform: scale(0.99); }
+        .option input { transform: scale(1.05); accent-color: #236b9b; flex-shrink: 0; width: 20px; height: 20px; margin: 0; }
+        .option label { font-size: 0.88rem; flex: 1; color: #1f4a66; line-height: 1.35; }
+        .opt-prefix { font-weight: 600; color: #2c6c9e; width: 26px; font-size: 0.85rem; }
+        .unanswered-badge { font-size: 0.65rem; background: #fff0db; color: #c46f1a; padding: 2px 10px; border-radius: 40px; margin-left: 8px; white-space: nowrap; }
+        .action-bar { display: flex; gap: 14px; margin: 12px 0 24px; }
+        .btn { flex: 1; text-align: center; padding: 12px 0; border-radius: 60px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; transition: 0.2s; font-family: inherit; -webkit-appearance: none; }
+        .btn-primary { background: linear-gradient(105deg, #1b5a7e, #2778a5); color: white; box-shadow: 0 5px 12px rgba(27,90,126,0.2); }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-secondary { background: #f0f4fa; color: #2a577b; border: 1px solid #cbddea; }
+        .btn-secondary:active { background: #e2eaf2; transform: scale(0.97); }
+        .result-card { background: linear-gradient(120deg, #fef7e0, #ffffff); border-left: 6px solid #1f6e94; }
+        .score-area { text-align: center; padding: 4px 0; }
+        .score-number { font-size: 2.6rem; font-weight: 800; color: #1f6e94; }
+        .score-total { font-size: 1.2rem; color: #5b7e9c; }
+        .score-rate { font-size: 0.85rem; margin-top: 6px; }
+        .detail-title { font-size: 1.1rem; font-weight: 700; margin: 20px 0 12px 6px; display: flex; align-items: center; gap: 8px; color: #1f5a7a; }
+        .answers-list { display: flex; flex-direction: column; gap: 18px; }
+        .answer-item { background: #ffffff; border-radius: 24px; padding: 14px; border-left: 5px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .answer-item.correct { border-left-color: #2c8c5a; background: #f8fff9; }
+        .answer-item.wrong { border-left-color: #dc5a5a; background: #fffbf8; }
+        .answer-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px; gap: 6px; }
+        .answer-q-text { font-weight: 700; font-size: 0.92rem; color: #1f3a4f; }
+        .answer-status { font-size: 0.7rem; background: #eef2fa; padding: 3px 10px; border-radius: 30px; font-weight: 600; }
+        .answer-status.correct { background: #dff0e6; color: #1c6e43; }
+        .answer-status.wrong { background: #ffe1e1; color: #b13e3e; }
+        .answer-detail { font-size: 0.85rem; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .user-choice, .right-choice { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; }
+        .user-choice .label, .right-choice .label { font-weight: 600; color: #4a627a; min-width: 68px; font-size: 0.82rem; }
+        .user-ans-text, .right-ans-text { background: #f0f3f8; padding: 3px 10px; border-radius: 24px; font-size: 0.82rem; word-break: break-word; }
+        .explanation-text { background: #eef4ff; padding: 8px 12px; border-radius: 20px; margin-top: 4px; color: #215e7a; font-size: 0.82rem; line-height: 1.4; }
+        .warning-tip { color: #c26b1a; font-size: 0.7rem; margin-top: 12px; text-align: center; background: #fff5e8; display: inline-block; width: 100%; padding: 6px; border-radius: 30px; }
+        footer { text-align: center; font-size: 0.65rem; color: #8aa0b5; margin-top: 28px; }
+        input, select, textarea { font-size: 16px; }
+    </style>
+</head>
+<body>
+<div class="exam-container">
+    <div class="header">
+        <h1>📜 旅游法规·实名自测</h1>
+        <div class="badge-info">⚖️ 判断5分/题 &nbsp;|&nbsp; 🔘 单选8分/题 &nbsp;|&nbsp; ☑️ 多选10分/题 &nbsp;|&nbsp; 满分100</div>
+    </div>
+    <div class="name-card">
+        <label>📛 考生姓名：</label>
+        <input type="text" id="studentName" placeholder="请输入真实姓名（每人仅可答题一次）" autocomplete="off">
+    </div>
+    <div id="questionsArea" class="card"></div>
+    <div class="action-bar">
+        <button class="btn btn-secondary" id="resetBtn">⟳ 清空重选</button>
+        <button class="btn btn-primary" id="submitBtn">✓ 提交答卷 & 查看报告</button>
+    </div>
+    <div id="resultArea" style="display: none;"></div>
+    <div class="warning-tip">⚠️ 同一姓名仅限答题一次，提交后无法再次以该姓名提交。</div>
+    <footer>—— 微信内打开完美适配 · 全题解析 ——</footer>
+</div>
+<script>
+    const QUESTIONS_DATA = [
+        { id: 1, type: 'judge', points: 5, text: "如果旅游不文明行为违反了社会治安秩序，则由公安部门对行为当事人实施行政处罚，同时由旅游主管部门将该行为纳入“旅游不文明行为记录”。", options: ["正确", "错误"], correct: 0, explanation: "在行政责任范围内，如果不文明旅游行为违反社会治安秩序，则由公安部门对旅游者及旅游从业人员实施行政处罚，同时由旅游主管部门将该行为纳入“旅游不文明行为记录”，并实施动态管理。" },
+        { id: 2, type: 'judge', points: 5, text: "农民购买、使用农资产品属于生产消费，因此不是《消费者权益保护法》的保护对象。", options: ["正确", "错误"], correct: 1, explanation: "《消费者权益保护法》第62条规定，农民购买、使用直接用于农业生产的生产资料，参照本法执行。虽然是生产消费，但法律特别保护农民权益。" },
+        { id: 3, type: 'judge', points: 5, text: "购买商品一方的家庭成员、受赠人等使用商品的主体是《消费者权益保护法》规定的消费者。", options: ["正确", "错误"], correct: 0, explanation: "《消费者权益保护法》第2条：消费者既包括商品的购买者，也包括商品的使用者，还包括服务的接受者。家庭成员、受赠人等使用商品的主体都是消费者。" },
+        { id: 4, type: 'judge', points: 5, text: "当事人无须举证证明根据已知的事实和日常生活经验法则推定出的另一事实。", options: ["正确", "错误"], correct: 0, explanation: "《民事证据规定》第10条规定，根据已知的事实和日常生活经验法则推定出的另一事实，当事人无须举证证明。" },
+        { id: 5, type: 'judge', points: 5, text: "社会调解机构已经受理的投诉，旅游投诉处理机构可以同步受理。", options: ["正确", "错误"], correct: 1, explanation: "《旅游投诉处理办法》第9条：社会调解机构已经受理或者处理的，旅游投诉处理机构不予受理。" },
+        { id: 6, type: 'judge', points: 5, text: "投诉案件的管辖，以一般地域管辖为主，需要立即制止、纠正被投诉人的损害行为的，应当由损害行为发生地旅游投诉处理机构管辖。", options: ["正确", "错误"], correct: 0, explanation: "《旅游投诉处理办法》第5条：需要立即制止、纠正被投诉人的损害行为的，应当由损害行为发生地旅游投诉处理机构管辖。" },
+        { id: 7, type: 'judge', points: 5, text: "违反治安管理行为是具有严重社会危害性的轻微刑事行为。", options: ["正确", "错误"], correct: 1, explanation: "《治安管理处罚法》第2条：违反治安管理行为具有社会危害性，但尚不构成刑事处罚，并非刑事行为。" },
+        { id: 8, type: 'judge', points: 5, text: "“旅游不文明行为记录”形成后，根据被记录人采取补救措施挽回不良影响的程度、对文明旅游宣传引导的社会效果，经评审委员会审议后可缩短记录期限。", options: ["正确", "错误"], correct: 0, explanation: "《国家旅游局关于旅游不文明行为记录管理暂行办法》第12条：经评审委员会审议后可缩短记录期限。" },
+        { id: 9, type: 'single', points: 8, text: "旅游者与旅游经营者发生纠纷后，解决争议往往首选的方式是()。", options: ["协商", "调解", "仲裁", "诉讼"], correct: 0, explanation: "协商成本低，建立在双方自愿基础上，是最常用的首选方式。" },
+        { id: 10, type: 'single', points: 8, text: "经营者与消费者进行交易:自愿、平等、公平、()的原则。", options: ["公正", "公开", "合法", "诚实信用"], correct: 3, explanation: "《消费者权益保护法》第4条：应当遵循自愿、平等、公平、诚实信用的原则。" },
+        { id: 11, type: 'single', points: 8, text: "下面关于消费者组织对消费者权益的保护，表述错误的一项是()。", options: [ "消费者协会应当听取消费者的意见和建议，接受社会监督", "消费者组织应当依法开展保护消费者合法权益的活动", "消费者组织应当从事商品经营和营利性服务，为相关维权活动提供经费支持", "消费者协会不得以收取费用或其他谋取利益的方式向消费者推荐商品和服务" ], correct: 2, explanation: "《消费者权益保护法》规定消费者组织不得从事商品经营和营利性服务。" },
+        { id: 12, type: 'single', points: 8, text: "经营者明知商品或者服务存在缺陷,仍然向消费者提供，造成消费者或者其他受害人死亡或者健康严重损害的，受害人有权要求其所受损失()以下的惩罚性赔偿。", options: ["1倍", "2倍", "3倍", "4倍"], correct: 1, explanation: "《消费者权益保护法》规定可要求所受损失2倍以下的惩罚性赔偿。" },
+        { id: 13, type: 'single', points: 8, text: "根据我国《旅游投诉处理办法》规定，投诉人()以上，以同一事由投诉同一被投诉人的，为共同投诉。", options: ["5人", "4人", "3人", "2人"], correct: 1, explanation: "《投诉处理办法》第14条：投诉人4人以上为共同投诉。" },
+        { id: 14, type: 'multi', points: 10, text: "《消费者权益保护法》的基本原则是（）", options: [ "自愿、平等、公平、诚实信用原则", "对消费者特别保护的原则", "国家保护消费者合法权益不受侵犯原则", "全社会共同保护消费者合法权益的原则", "消费者与经营者权利义务一致性原则" ], correct: [0,1,2,3], explanation: "《消费者权益保护法》第4条及立法精神确立的基本原则包括自愿平等公平诚信、对消费者特别保护、国家保护、全社会共同保护。E项权利义务一致性并非基本原则。" },
+        { id: 15, type: 'multi', points: 10, text: "根据《消费者权益保护法》规定，消费者在购买、使用商品和接受服务时享有下列权利()。", options: [ "人身、财产安全不受损害的权利", "随时要求销售者退换货的权利", "自主选择商品或者服务的权利", "公平交易的权利", "知悉商品和服务真实情况的权利" ], correct: [0,2,3,4], explanation: "《消费者权益保护法》第7~15条：安全保障权、知情权、自主选择权、公平交易权等，B项“随时退换货”不是法定权利。" }
+    ];
+    const TOTAL_SCORE = QUESTIONS_DATA.reduce((s,q)=>s+q.points,0);
+    let userAnswers = QUESTIONS_DATA.map(()=>({value:null}));
+    const STORAGE_KEY = "exam_submitted_names_v2";
+    function getSubmittedNames(){ try{ const s=localStorage.getItem(STORAGE_KEY); return s?JSON.parse(s):[]; }catch(e){return [];} }
+    function saveSubmittedName(n){ const names=getSubmittedNames(); if(!names.includes(n)){ names.push(n); localStorage.setItem(STORAGE_KEY,JSON.stringify(names)); } }
+    function isNameAlreadySubmitted(n){ return getSubmittedNames().includes(n); }
+    const questionsContainer=document.getElementById("questionsArea");
+    const resultDiv=document.getElementById("resultArea");
+    const submitBtn=document.getElementById("submitBtn");
+    const resetBtn=document.getElementById("resetBtn");
+    const nameInput=document.getElementById("studentName");
+    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g,function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    function getUserAnswerDisplay(q,v){ if(q.type==='multi'){ if(!v||v.length===0) return '未作答'; return v.map(i=>String.fromCharCode(65+i)+'.'+q.options[i]).join('；'); }else{ if(v===null||v===-1) return '未作答'; return String.fromCharCode(65+v)+'.'+q.options[v]; } }
+    function getCorrectAnswerDisplay(q){ if(q.type==='multi') return q.correct.map(i=>String.fromCharCode(65+i)+'.'+q.options[i]).join('；'); else return String.fromCharCode(65+q.correct)+'.'+q.options[q.correct]; }
+    function isAnswerCorrect(q,v){ if(q.type==='multi'){ const ca=q.correct; const ua=Array.isArray(v)?v:[]; if(ua.length!==ca.length) return false; const sc=[...ca].sort((a,b)=>a-b); const su=[...ua].sort((a,b)=>a-b); return sc.every((x,i)=>x===su[i]); }else{ const ui=(v===null||v===undefined)?-1:v; return ui===q.correct; } }
+    function renderQuestions(){ let html=''; QUESTIONS_DATA.forEach((q,idx)=>{ const typeLabel=q.type==='judge'?'⚖️ 判断题':(q.type==='single'?'🔘 单选题':'☑️ 多选题'); const pointsLabel=`${q.points}分`; const curAns=userAnswers[idx].value; let optsHtml=''; q.options.forEach((opt,oidx)=>{ const letter=String.fromCharCode(65+oidx); let checked=false; if(q.type==='multi'){ if(Array.isArray(curAns)&&curAns.includes(oidx)) checked=true; }else{ if(typeof curAns==='number'&&curAns===oidx) checked=true; } const inputType=q.type==='multi'?'checkbox':'radio'; const nameAttr=q.type==='multi'?`q${idx}_multi`:`q${idx}`; const checkedAttr=checked?'checked':''; optsHtml+=`<div class="option" data-qidx="${idx}" data-oidx="${oidx}" data-type="${q.type}"><span class="opt-prefix">${letter}.</span><input type="${inputType}" name="${nameAttr}" value="${oidx}" id="q${idx}_opt${oidx}" ${checkedAttr}><label for="q${idx}_opt${oidx}">${escapeHtml(opt)}</label></div>`; }); const unansweredMark=(()=>{ if(q.type==='multi') return (!curAns||curAns.length===0)?'<span class="unanswered-badge">未作答</span>':''; else return (curAns===null||curAns===-1)?'<span class="unanswered-badge">未作答</span>':''; })(); html+=`<div class="question-item" data-qidx="${idx}"><div class="q-title"><span class="q-type">${typeLabel}</span><span class="q-points">${pointsLabel}</span><span class="question-text">${idx+1}. ${escapeHtml(q.text)}</span>${unansweredMark}</div><div class="options" data-qidx="${idx}">${optsHtml}</div></div>`; }); questionsContainer.innerHTML=html; attachEvents(); }
+    function attachEvents(){ document.querySelectorAll('.option').forEach(optDiv=>{ const qIdx=parseInt(optDiv.dataset.qidx); const optIdx=parseInt(optDiv.dataset.oidx); const type=optDiv.dataset.type; let input=optDiv.querySelector('input'); if(!input) return; const newInput=input.cloneNode(true); optDiv.replaceChild(newInput,input); const finalInput=optDiv.querySelector('input'); optDiv.addEventListener('click',(e)=>{ if(e.target.tagName!=='INPUT'){ if(type==='multi'){ finalInput.checked=!finalInput.checked; finalInput.dispatchEvent(new Event('change',{bubbles:true})); }else{ finalInput.checked=true; finalInput.dispatchEvent(new Event('change',{bubbles:true})); } } }); finalInput.addEventListener('change',(e)=>{ e.stopPropagation(); if(type==='multi'){ const cbs=document.querySelectorAll(`.option[data-qidx='${qIdx}'] input[type="checkbox"]`); const vals=Array.from(cbs).filter(cb=>cb.checked).map(cb=>parseInt(cb.value)); userAnswers[qIdx].value=vals; const qDiv=document.querySelector(`.question-item[data-qidx='${qIdx}']`); if(qDiv){ const badge=qDiv.querySelector('.unanswered-badge'); if(badge&&vals.length>0) badge.remove(); else if(!badge&&vals.length===0&&!qDiv.querySelector('.unanswered-badge')) qDiv.querySelector('.q-title').insertAdjacentHTML('beforeend','<span class="unanswered-badge">未作答</span>'); } }else{ const selVal=finalInput.checked?parseInt(finalInput.value):-1; if(finalInput.checked) userAnswers[qIdx].value=selVal; else if(userAnswers[qIdx].value===selVal) userAnswers[qIdx].value=null; const qDiv=document.querySelector(`.question-item[data-qidx='${qIdx}']`); if(qDiv){ const badge=qDiv.querySelector('.unanswered-badge'); const isAnswered=(userAnswers[qIdx].value!==null&&userAnswers[qIdx].value!==-1); if(isAnswered&&badge) badge.remove(); if(!isAnswered&&!badge) qDiv.querySelector('.q-title').insertAdjacentHTML('beforeend','<span class="unanswered-badge">未作答</span>'); } } }); }); }
+    function resetExam(){ userAnswers=QUESTIONS_DATA.map(()=>({value:null})); renderQuestions(); resultDiv.style.display='none'; resultDiv.innerHTML=''; window.scrollTo({top:0,behavior:'smooth'}); }
+    function computeScoreAndFullReport(){ const studentName=nameInput.value.trim(); if(studentName===''){ alert("请填写您的姓名后再提交试卷。"); nameInput.focus(); return; } if(isNameAlreadySubmitted(studentName)){ alert(`⚠️ 姓名“${studentName}”已经完成过答题，每人仅限参与一次。无法重复提交。`); return; } let unansweredCount=0; QUESTIONS_DATA.forEach((q,idx)=>{ const ans=userAnswers[idx].value; if(q.type==='multi'){ if(!ans||ans.length===0) unansweredCount++; }else{ if(ans===null||ans===-1) unansweredCount++; } }); if(unansweredCount>0){ if(!confirm(`还有 ${unansweredCount} 道题未作答，未答按错误处理，是否继续提交？`)) return; } let totalEarned=0; const detailedResults=[]; QUESTIONS_DATA.forEach((q,idx)=>{ const userVal=userAnswers[idx].value; const isCorrect=isAnswerCorrect(q,userVal); if(isCorrect) totalEarned+=q.points; detailedResults.push({ id:q.id, type:q.type==='judge'?'判断':(q.type==='single'?'单选':'多选'), text:q.text, userDisplay:getUserAnswerDisplay(q,userVal), correctDisplay:getCorrectAnswerDisplay(q), explanation:q.explanation, isCorrect:isCorrect, points:q.points }); }); saveSubmittedName(studentName); const percent=(totalEarned/TOTAL_SCORE*100).toFixed(1); const correctCount=detailedResults.filter(r=>r.isCorrect).length; let resultHtml=`<div class="card result-card"><div class="score-area"><div>🎓 考生：${escapeHtml(studentName)}</div><div><span class="score-number">${totalEarned}</span><span class="score-total"> / ${TOTAL_SCORE}</span></div><div class="score-rate">得分率 ${percent}% &nbsp;|&nbsp; 答对 ${correctCount} / ${QUESTIONS_DATA.length} 题</div></div></div><div class="detail-title">📋 全卷逐题解析（含正确/错误及详解）</div><div class="answers-list">`; detailedResults.forEach((item,i)=>{ const statusClass=item.isCorrect?'correct':'wrong'; const statusText=item.isCorrect?'✓ 回答正确':'✗ 回答错误'; resultHtml+=`<div class="answer-item ${statusClass}"><div class="answer-header"><span class="answer-q-text">${i+1}. [${item.type}] ${escapeHtml(item.text)}</span><span class="answer-status ${statusClass}">${statusText} (${item.points}分)</span></div><div class="answer-detail"><div class="user-choice"><span class="label">你的答案：</span><span class="user-ans-text">${escapeHtml(item.userDisplay)}</span></div><div class="right-choice"><span class="label">正确答案：</span><span class="right-ans-text">${escapeHtml(item.correctDisplay)}</span></div><div class="explanation-text">📖 解析：${escapeHtml(item.explanation)}</div></div></div>`; }); resultHtml+=`</div><div style="margin-top:18px; text-align:center; font-size:0.75rem; color:#556b82;">✏️ 清空重选可再次练习，但同一姓名无法重复提交。</div>`; resultDiv.innerHTML=resultHtml; resultDiv.style.display='block'; setTimeout(()=>resultDiv.scrollIntoView({behavior:'smooth',block:'start'}),100); }
+    submitBtn.addEventListener('click',computeScoreAndFullReport);
+    resetBtn.addEventListener('click',resetExam);
+    renderQuestions();
+</script>
+</body>
+</html>
